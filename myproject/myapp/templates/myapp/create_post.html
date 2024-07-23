@@ -1,0 +1,15 @@
+{% extends 'myapp/layout.html' %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'myapp/create_post.css' %}" rel="stylesheet">
+
+    <h1>Create a New Blog Post</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" id="button">Create Post</button>
+    </form>
+    
+{% endblock %}

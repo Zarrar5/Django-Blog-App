@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Blog</title>
+    <link href="{% static 'myapp/layout.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+           
+           <p>  <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'blog_posts' %}">Blog</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </p>
+            
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Blog</p>
+    </footer>
+</body>
+</html>

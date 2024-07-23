@@ -1,0 +1,15 @@
+{% extends "myapp/layout.html" %}
+{% load static %}
+
+{% block content %}
+<link href="{% static 'myapp/user.css' %}" rel="stylesheet">
+
+    <h1>Current User: {{ request.user.first_name }}</h1>
+<div>
+  
+      <p> Username: {{ request.user.username }}</p>
+      <p>    Email: {{ request.user.email }}</p>
+    
+</div>
+
+{% endblock %}

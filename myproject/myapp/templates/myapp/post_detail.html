@@ -1,0 +1,46 @@
+{% extends 'myapp/layout.html' %}
+{% load static%}
+
+{% block content %}
+
+<link href="{% static 'myapp/post_detail.css' %}" rel="stylesheet">
+
+    <h1>{{ post.title }}</h1>
+
+    <p>by {{ post.author.username }} on {{ post.date_posted }}</p>
+    <p>{{ post.content }}</p>
+    <p>Likes: {{ post.likes_count }}</p>
+    
+    <form action="{% url 'like_post' post.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" id="button">
+            {% if user.is_authenticated and user in post.liked_by.all %}
+                Unlike
+            {% else %}
+                Like
+            {% endif %}
+        </button>
+    </form>
+
+    <hr>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div>
+            <p>{{ comment.content }}</p>
+            <p>by {{ comment.author.username }} on {{ comment.date_posted }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h2>Leave a Comment</h2>
+        <form action="{% url 'post_detail' post.id %}" method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" id="button2">Submit</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to leave a comment.</p>
+    {% endif %}
+{% endblock %}
